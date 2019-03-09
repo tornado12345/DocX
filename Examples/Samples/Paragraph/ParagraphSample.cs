@@ -75,13 +75,24 @@ namespace Xceed.Words.NET.Examples
         var p2 = document.InsertParagraph();
 
         // Append some text and add formatting.
-        p2.Append( "This is a formatted paragraph using spacing," )
+        p2.Append( "This is a formatted paragraph using spacing, line spacing, " )
         .Font( new Font( "Courier New" ) )
         .FontSize( 10 )
         .Italic()
         .Spacing( 5 )
+        .SpacingLine( 22 )
         .Append( "highlight" ).Highlight( Highlight.yellow ).UnderlineColor( Color.Blue ).CapsStyle( CapsStyle.caps )
-        .Append( " and strike through." ).StrikeThrough( StrikeThrough.strike );
+        .Append( " and strike through." ).StrikeThrough( StrikeThrough.strike )
+        .SpacingAfter( 40 );
+
+        // Insert another Paragraph into this document.
+        var p3 = document.InsertParagraph();
+
+        // Append some text with 2 TabStopPositions.
+        p3.InsertTabStopPosition( Alignment.center, 216f, TabStopPositionLeader.dot )
+        .InsertTabStopPosition( Alignment.right, 432f, TabStopPositionLeader.dot )
+        .Append( "Text with TabStopPositions on Left\tMiddle\tand Right" )
+        .SpacingAfter( 40 );
 
         // Save this document to disk.
         document.Save();
@@ -204,6 +215,15 @@ namespace Xceed.Words.NET.Examples
         var p4 = document.InsertParagraph( "In this paragraph, we replace a word by using a handler: <COST>." );
         // Replace "<COST>" with "$13.95" using an handler
         p4.ReplaceText( "<(.*?)>", ReplaceTextHandler, false, RegexOptions.IgnoreCase, null, new Formatting() );
+
+        p4.SpacingAfter( 30 );
+
+        // Insert another Paragraph into this document.
+        var p5 = document.InsertParagraph();
+
+        // Append some text with track changes
+        p5.Append( "This is a paragraph where tracking of modifications is used." );
+        p5.ReplaceText( "modifications", "changes", true );
 
         // Save this document to disk.
         document.Save();
